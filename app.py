@@ -36,7 +36,7 @@ async def index(request: Request):
         return RedirectResponse(url=config.login_path)
     context = {
         "request": request,
-        "user": token.id_token_claims,
+        "user_name": token.id_token_claims,
         "version": msal.__version__,
     }
     return templates.TemplateResponse(name="index.html", context=context)
