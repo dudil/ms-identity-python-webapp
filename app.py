@@ -9,14 +9,16 @@ from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi_msal import MSALAuthorization, MSALClientConfig
 from fastapi_msal.models import AuthToken
+from pydantic import ConfigDict
 
 
 class AppConfig(MSALClientConfig):
+    model_config = ConfigDict(extra='allow')
     # You can find more Microsoft Graph API endpoints from Graph Explorer
     # https://developer.microsoft.com/en-us/graph/graph-explorer
     endpoint: str = "https://graph.microsoft.com/v1.0/users"  # This resource requires no admin consent
-    login_path = "/login"  # default is '/_login_route'
-    logout_path = "/logout"  # default is '/_logout_route'
+    login_path: str = "/login"  # default is '/_login_route'
+    logout_path: str = "/logout"  # default is '/_logout_route'
 
 
 config = AppConfig(_env_file="app_config.env")
